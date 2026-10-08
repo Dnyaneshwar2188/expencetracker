@@ -1,0 +1,148 @@
+/* ==========================================================================
+   FINFLOW - DESIGN TOKENS & CSS VARIABLES
+   ========================================================================== */
+
+:root {
+  /* Font Families */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', var(--font-sans);
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Brand Primary & Accents */
+  --primary-50: #EEF2FF;
+  --primary-100: #E0E7FF;
+  --primary-200: #C7D2FE;
+  --primary-300: #A5B4FC;
+  --primary-400: #818CF8;
+  --primary-500: #6366F1;
+  --primary-600: #4F46E5;
+  --primary-700: #4338CA;
+  --primary-800: #3730A3;
+  --primary-900: #312E81;
+  --primary-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  --accent-gradient: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+  --success-gradient: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  --danger-gradient: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  --warning-gradient: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+
+  /* Financial Semantic Colors */
+  --color-income: #10B981;
+  --color-income-hover: #059669;
+  --color-income-light: #ECFDF5;
+  --color-income-border: #A7F3D0;
+
+  --color-expense: #EF4444;
+  --color-expense-hover: #DC2626;
+  --color-expense-light: #FEF2F2;
+  --color-expense-border: #FECACA;
+
+  --color-savings: #06B6D4;
+  --color-savings-hover: #0891B2;
+  --color-savings-light: #ECFEFF;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FFFBEB;
+  --color-warning-border: #FDE68A;
+
+  --color-info: #3B82F6;
+  --color-info-light: #EFF6FF;
+
+  /* Common Spacings */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Border Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.35);
+
+  /* Light Theme Specifics (Default) */
+  --bg-app: #F8FAFC;
+  --bg-sidebar: #FFFFFF;
+  --bg-header: rgba(255, 255, 255, 0.85);
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAFC;
+  --bg-surface: #F1F5F9;
+  --bg-input: #FFFFFF;
+  --bg-overlay: rgba(15, 23, 42, 0.6);
+  --bg-glass: rgba(255, 255, 255, 0.7);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
+  --text-muted: #CBD5E1;
+  --text-inverse: #FFFFFF;
+
+  --border-light: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --border-focus: #6366F1;
+
+  --chart-grid: rgba(226, 232, 240, 0.8);
+  --chart-label: #64748B;
+}
+
+/* ==========================================================================
+   DARK THEME PALETTE
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-app: #0B0F19;
+  --bg-sidebar: #111827;
+  --bg-header: rgba(17, 24, 39, 0.85);
+  --bg-card: #151D30;
+  --bg-card-hover: #1E293B;
+  --bg-surface: #1E293B;
+  --bg-input: #111827;
+  --bg-overlay: rgba(3, 7, 18, 0.8);
+  --bg-glass: rgba(21, 29, 48, 0.75);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+  --text-muted: #475569;
+  --text-inverse: #0F172A;
+
+  --border-light: #1E293B;
+  --border-subtle: #192238;
+  --border-focus: #818CF8;
+
+  --color-income-light: rgba(16, 185, 129, 0.12);
+  --color-income-border: rgba(16, 185, 129, 0.25);
+
+  --color-expense-light: rgba(239, 68, 68, 0.12);
+  --color-expense-border: rgba(239, 68, 68, 0.25);
+
+  --color-savings-light: rgba(6, 182, 212, 0.12);
+  --color-warning-light: rgba(245, 158, 11, 0.12);
+  --color-warning-border: rgba(245, 158, 11, 0.25);
+  --color-info-light: rgba(59, 130, 246, 0.12);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 28px rgba(99, 102, 241, 0.25);
+
+  --chart-grid: rgba(30, 41, 59, 0.7);
+  --chart-label: #94A3B8;
+}

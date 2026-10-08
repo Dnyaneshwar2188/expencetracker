@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FinFlow - Modern Personal Expense Tracker & Comprehensive Finance Management Application" />
+  <meta name="keywords" content="expense tracker, finance manager, personal budget, savings goals, recurring payments, cashflow analytics" />
+  <meta name="author" content="FinFlow Team" />
+  <title>FinFlow — Personal Expense Tracker & Financial Management</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- App Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/views.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- ====================================================================
+         1. SIDEBAR NAVIGATION
+         ==================================================================== -->
+    <aside class="app-sidebar" id="appSidebar">
+      <!-- Sidebar Header & Logo -->
+      <div class="sidebar-header">
+        <div class="brand-logo" onclick="App.navigate('dashboard')">
+          <div class="brand-icon-box">
+            <i data-lucide="wallet-cards"></i>
+          </div>
+          <div>
+            <span class="brand-name">FinFlow</span>
+            <span class="brand-badge">PRO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Overview</div>
+        <div class="nav-item active" data-view="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-view="transactions">
+          <i data-lucide="receipt"></i>
+          <span>Transactions</span>
+        </div>
+
+        <div class="nav-section-title">Planning & Goals</div>
+        <div class="nav-item" data-view="budgets">
+          <i data-lucide="pie-chart"></i>
+          <span>Budgets</span>
+        </div>
+        <div class="nav-item" data-view="savings">
+          <i data-lucide="target"></i>
+          <span>Savings Goals</span>
+        </div>
+        <div class="nav-item" data-view="recurring">
+          <i data-lucide="calendar-clock"></i>
+          <span>Subscriptions</span>
+        </div>
+
+        <div class="nav-section-title">Intelligence & Reports</div>
+        <div class="nav-item" data-view="analytics">
+          <i data-lucide="bar-chart-3"></i>
+          <span>Analytics</span>
+        </div>
+        <div class="nav-item" data-view="calendar">
+          <i data-lucide="calendar"></i>
+          <span>Calendar</span>
+        </div>
+        <div class="nav-item" data-view="reports">
+          <i data-lucide="file-text"></i>
+          <span>Reports</span>
+        </div>
+
+        <div class="nav-section-title">System</div>
+        <div class="nav-item" data-view="settings">
+          <i data-lucide="settings"></i>
+          <span>Settings</span>
+        </div>
+      </nav>
+
+      <!-- Sidebar User Preview & Lock -->
+      <div class="sidebar-footer">
+        <div class="user-profile-preview" onclick="App.navigate('settings')">
+          <div class="avatar" id="sidebarUserAvatar">D</div>
+          <div class="user-details">
+            <div class="user-name" id="sidebarUserName">Dnyaneshwar</div>
+            <div class="user-email" id="sidebarUserEmail">user@finflow.app</div>
+          </div>
+          <button class="header-action-btn" style="width: 30px; height: 30px; margin-left: auto;" title="Lock App" onclick="event.stopPropagation(); App.lockScreen();">
+            <i data-lucide="lock" style="width: 14px; height: 14px;"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         2. MAIN APPLICATION CONTENT
+         ==================================================================== -->
+    <main class="app-main">
+      <!-- Top Sticky Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="page-title-box">
+            <h1 class="page-title" id="headerPageTitle">Dashboard</h1>
+            <span class="page-subtitle" id="headerPageSubtitle">Welcome back to your financial control center</span>
+          </div>
+        </div>
+
+        <!-- Header Search Bar -->
+        <div class="header-search" id="headerSearchTrigger" style="cursor: pointer;">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" placeholder="Quick search transactions... (Ctrl+K)" readonly />
+          <span class="search-shortcut">⌘K</span>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-right">
+          <!-- Add Transaction Fast Button -->
+          <button class="btn btn-primary btn-sm" onclick="App.openTransactionModal()">
+            <i data-lucide="plus"></i> <span>Add</span>
+          </button>
+
+          <!-- Theme Toggle -->
+          <button class="header-action-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+            <i data-lucide="moon" id="themeToggleIcon"></i>
+          </button>
+
+          <!-- Notifications Bell -->
+          <button class="header-action-btn" id="notificationsToggleBtn" title="Notifications" aria-label="Notifications">
+            <i data-lucide="bell"></i>
+            <span class="notification-badge" id="headerNotificationBadge"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Views Container -->
+      <div class="app-content">
+        <!-- 1. Dashboard View -->
+        <section id="view-dashboard" class="app-view active"></section>
+
+        <!-- 2. Transactions View -->
+        <section id="view-transactions" class="app-view"></section>
+
+        <!-- 3. Budgets View -->
+        <section id="view-budgets" class="app-view"></section>
+
+        <!-- 4. Savings Goals View -->
+        <section id="view-savings" class="app-view"></section>
+
+        <!-- 5. Recurring Payments View -->
+        <section id="view-recurring" class="app-view"></section>
+
+        <!-- 6. Analytics View -->
+        <section id="view-analytics" class="app-view"></section>
+
+        <!-- 7. Calendar View -->
+        <section id="view-calendar" class="app-view"></section>
+
+        <!-- 8. Reports View -->
+        <section id="view-reports" class="app-view"></section>
+
+        <!-- 9. Settings View -->
+        <section id="view-settings" class="app-view"></section>
+      </div>
+
+      <!-- Mobile Bottom Navigation -->
+      <nav class="mobile-bottom-nav">
+        <div class="bottom-nav-item active" data-view="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Home</span>
+        </div>
+        <div class="bottom-nav-item" data-view="transactions">
+          <i data-lucide="receipt"></i>
+          <span>Txns</span>
+        </div>
+        <div class="bottom-nav-item" style="color: var(--primary-500);" onclick="App.openTransactionModal()">
+          <div style="background: var(--primary-gradient); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFF; box-shadow: 0 4px 10px rgba(99,102,241,0.4);">
+            <i data-lucide="plus"></i>
+          </div>
+        </div>
+        <div class="bottom-nav-item" data-view="budgets">
+          <i data-lucide="pie-chart"></i>
+          <span>Budgets</span>
+        </div>
+        <div class="bottom-nav-item" data-view="analytics">
+          <i data-lucide="bar-chart-3"></i>
+          <span>Analytics</span>
+        </div>
+      </nav>
+    </main>
+  </div>
+
+  <!-- ====================================================================
+       3. MODALS & DIALOGS
+       ==================================================================== -->
+
+  <!-- Modal 1: Add / Edit Transaction -->
+  <div class="modal-overlay" id="transactionModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="txnModalTitle">Add Transaction</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeModal('transactionModal')">&times;</button>
+      </div>
+      <form id="transactionForm" onsubmit="App.saveTransaction(event)">
+        <div class="modal-body">
+          <input type="hidden" id="txnId" value="" />
+          <input type="hidden" id="txnType" value="expense" />
+
+          <!-- Type Switcher -->
+          <div class="type-toggle-group">
+            <button type="button" id="typeBtnExpense" class="type-toggle-btn active expense" onclick="App.setTransactionType('expense')">
+              <i data-lucide="minus-circle"></i> Expense
+            </button>
+            <button type="button" id="typeBtnIncome" class="type-toggle-btn" onclick="App.setTransactionType('income')">
+              <i data-lucide="plus-circle"></i> Income
+            </button>
+          </div>
+
+          <!-- Amount Input -->
+          <div class="form-group">
+            <label class="form-label" for="txnAmount">Amount *</label>
+            <input type="number" id="txnAmount" class="form-control" placeholder="0.00" step="any" min="0.01" required style="font-size: 1.3rem; font-weight: 700;" autofocus />
+          </div>
+
+          <!-- Category & Payment Method -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="txnCategory">Category *</label>
+              <select id="txnCategory" class="form-control" required></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="txnPaymentMethod">Payment Method *</label>
+              <select id="txnPaymentMethod" class="form-control" required>
+                <option value="upi">UPI</option>
+                <option value="credit_card">Credit Card</option>
+                <option value="debit_card">Debit Card</option>
+                <option value="bank_transfer">Bank Transfer</option>
+                <option value="cash">Cash</option>
+                <option value="wallet">Wallet</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Date & Time -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="txnDate">Date *</label>
+              <input type="date" id="txnDate" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="txnTime">Time</label>
+              <input type="time" id="txnTime" class="form-control" />
+            </div>
+          </div>
+
+          <!-- Merchant & Notes -->
+          <div class="form-group">
+            <label class="form-label" for="txnMerchant">Merchant / Payee</label>
+            <input type="text" id="txnMerchant" class="form-control" placeholder="e.g. Swiggy, Amazon, Zara, Landlord" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="txnDescription">Description / Notes</label>
+            <textarea id="txnDescription" class="form-control" rows="2" placeholder="Optional notes or details..."></textarea>
+          </div>
+
+          <!-- Receipt Upload -->
+          <div class="form-group">
+            <label class="form-label">Receipt / Invoice Attachment</label>
+            <div class="dropzone" onclick="document.getElementById('txnReceiptFile').click()">
+              <i data-lucide="upload-cloud" style="color: var(--primary-500); font-size: 1.6rem; margin-bottom: 4px;"></i>
+              <div style="font-size: 0.85rem; font-weight: 600;">Click to upload receipt photo / invoice</div>
+              <div style="font-size: 0.75rem; color: var(--text-tertiary);">Supports PNG, JPG, or SVG invoice</div>
+              <input type="file" id="txnReceiptFile" accept="image/*" style="display: none;" onchange="App.handleReceiptUpload(event)" />
+            </div>
+            <input type="hidden" id="txnReceiptBase64" value="" />
+            <div id="receiptPreviewBox"></div>
+          </div>
+
+          <!-- Recurring Option -->
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+            <input type="checkbox" id="txnRecurring" style="width: 18px; height: 18px; accent-color: var(--primary-500);" />
+            <label for="txnRecurring" style="font-size: 0.88rem; font-weight: 600; cursor: pointer;">This is a recurring transaction</label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('transactionModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Transaction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Add Category Budget -->
+  <div class="modal-overlay" id="budgetModal">
+    <div class="modal-box" style="max-width: 460px;">
+      <div class="modal-header">
+        <h3>Set Category Budget</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeModal('budgetModal')">&times;</button>
+      </div>
+      <form onsubmit="App.saveCategoryBudget(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="budgetCategorySelect">Category</label>
+            <select id="budgetCategorySelect" class="form-control" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetAmountInput">Monthly Limit</label>
+            <input type="number" id="budgetAmountInput" class="form-control" placeholder="e.g. 8000" min="100" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('budgetModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Budget</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Add / Edit Savings Goal -->
+  <div class="modal-overlay" id="goalModal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 id="goalModalTitle">New Savings Goal</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeModal('goalModal')">&times;</button>
+      </div>
+      <form id="goalForm" onsubmit="App.saveGoal(event)">
+        <div class="modal-body">
+          <input type="hidden" id="goalId" value="" />
+          <div class="form-group">
+            <label class="form-label" for="goalName">Goal Name *</label>
+            <input type="text" id="goalName" class="form-control" placeholder="e.g. MacBook Pro, Bali Trip, Emergency Fund" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="goalTargetAmount">Target Amount *</label>
+              <input type="number" id="goalTargetAmount" class="form-control" placeholder="e.g. 50000" min="500" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalCurrentSaved">Initial Saved</label>
+              <input type="number" id="goalCurrentSaved" class="form-control" placeholder="0" min="0" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="goalTargetDate">Target Date *</label>
+              <input type="date" id="goalTargetDate" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalCategory">Goal Category</label>
+              <select id="goalCategory" class="form-control">
+                <option value="Savings">General Savings</option>
+                <option value="Gadgets">Gadgets & Tech</option>
+                <option value="Travel">Travel & Vacations</option>
+                <option value="Vehicle">Vehicle / Auto</option>
+                <option value="Home">Home & Living</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('goalModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Goal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Add / Edit Recurring Expense -->
+  <div class="modal-overlay" id="recurringModal">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 id="recurringModalTitle">Add Recurring Payment</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeModal('recurringModal')">&times;</button>
+      </div>
+      <form id="recurringForm" onsubmit="App.saveRecurring(event)">
+        <div class="modal-body">
+          <input type="hidden" id="recurringId" value="" />
+          <div class="form-group">
+            <label class="form-label" for="recurringName">Subscription / Bill Name *</label>
+            <input type="text" id="recurringName" class="form-control" placeholder="e.g. Netflix, Spotify, Broadband, Rent, EMI" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="recurringAmount">Amount *</label>
+              <input type="number" id="recurringAmount" class="form-control" placeholder="e.g. 649" min="1" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="recurringFrequency">Frequency *</label>
+              <select id="recurringFrequency" class="form-control">
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Daily">Daily</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="recurringNextDate">Next Due Date *</label>
+              <input type="date" id="recurringNextDate" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="recurringCategory">Category</label>
+              <select id="recurringCategory" class="form-control">
+                <option value="Subscriptions">Subscriptions</option>
+                <option value="Bills">Bills & Utilities</option>
+                <option value="Rent">Rent</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Investment">Investment SIP</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="recurringPaymentMethod">Default Payment Method</label>
+            <select id="recurringPaymentMethod" class="form-control">
+              <option value="upi">UPI</option>
+              <option value="credit_card">Credit Card</option>
+              <option value="bank_transfer">Bank Transfer</option>
+              <option value="debit_card">Debit Card</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="App.closeModal('recurringModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Recurring Bill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Global Search (Ctrl+K) -->
+  <div class="modal-overlay global-search-modal" id="globalSearchModal">
+    <div class="modal-box">
+      <div class="global-search-input-box">
+        <i data-lucide="search" style="color: var(--primary-500);"></i>
+        <input type="text" id="globalSearchInput" placeholder="Search transactions, merchants, notes, goals..." />
+        <span class="search-shortcut">ESC</span>
+      </div>
+      <div class="search-results-list" id="globalSearchResults"></div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Full Receipt Lightbox -->
+  <div class="modal-overlay" id="receiptViewModal">
+    <div class="modal-box" style="max-width: 480px; text-align: center;">
+      <div class="modal-header">
+        <h3>Invoice / Receipt Document</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeModal('receiptViewModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: var(--space-md); text-align: center;">
+        <img id="receiptFullImage" src="" alt="Receipt" style="max-width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="App.closeModal('receiptViewModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 7: Generic Content Dialog -->
+  <div class="modal-overlay" id="genericModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="genericModalTitle">Details</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeGenericModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="genericModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Modal 8: Confirmation Dialog -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3 id="confirmModalTitle">Are you sure?</h3>
+        <button class="btn btn-outline btn-icon-only btn-sm" onclick="App.closeModal('confirmModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmModalMessage" style="font-size: 0.95rem;"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="App.closeModal('confirmModal')">Cancel</button>
+        <button id="confirmModalActionBtn" class="btn btn-primary">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       4. PIN SECURITY LOCK SCREEN OVERLAY
+       ==================================================================== -->
+  <div class="pin-lock-overlay" id="pinLockOverlay" style="display: none;">
+    <div class="pin-lock-card">
+      <div class="brand-icon-box" style="margin: 0 auto var(--space-md);">
+        <i data-lucide="lock"></i>
+      </div>
+      <h2 style="font-size: 1.5rem; margin-bottom: 4px;">FinFlow Protected</h2>
+      <p style="font-size: 0.85rem; color: var(--text-tertiary);">Enter your 4-digit security PIN to unlock</p>
+
+      <div class="pin-dots-container">
+        <div class="pin-dot" id="pinDot1"></div>
+        <div class="pin-dot" id="pinDot2"></div>
+        <div class="pin-dot" id="pinDot3"></div>
+        <div class="pin-dot" id="pinDot4"></div>
+      </div>
+
+      <div class="pin-keypad">
+        <button class="pin-key" onclick="App.pressPinKey('1')">1</button>
+        <button class="pin-key" onclick="App.pressPinKey('2')">2</button>
+        <button class="pin-key" onclick="App.pressPinKey('3')">3</button>
+        <button class="pin-key" onclick="App.pressPinKey('4')">4</button>
+        <button class="pin-key" onclick="App.pressPinKey('5')">5</button>
+        <button class="pin-key" onclick="App.pressPinKey('6')">6</button>
+        <button class="pin-key" onclick="App.pressPinKey('7')">7</button>
+        <button class="pin-key" onclick="App.pressPinKey('8')">8</button>
+        <button class="pin-key" onclick="App.pressPinKey('9')">9</button>
+        <div style="width: 60px;"></div>
+        <button class="pin-key" onclick="App.pressPinKey('0')">0</button>
+        <button class="pin-key" onclick="App.pressPinKey('backspace')">
+          <i data-lucide="delete" style="width: 20px; height: 20px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       5. FLOATING TOAST NOTIFICATION CONTAINER
+       ==================================================================== -->
+  <div id="toast-container"></div>
+
+  <!-- ====================================================================
+       6. SCRIPTS
+       ==================================================================== -->
+  <!-- Vendor Scripts (Offline local copies) -->
+  <script src="assets/vendor/chart.min.js"></script>
+  <script src="assets/vendor/lucide.min.js"></script>
+
+  <!-- Core App Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/charts.js"></script>
+
+  <!-- View Controllers -->
+  <script src="js/views/dashboardView.js"></script>
+  <script src="js/views/transactionsView.js"></script>
+  <script src="js/views/budgetsView.js"></script>
+  <script src="js/views/savingsView.js"></script>
+  <script src="js/views/recurringView.js"></script>
+  <script src="js/views/analyticsView.js"></script>
+  <script src="js/views/calendarView.js"></script>
+  <script src="js/views/reportsView.js"></script>
+  <script src="js/views/settingsView.js"></script>
+
+  <!-- Main Orchestrator -->
+  <script src="js/app.js"></script>
+</body>
+</html>

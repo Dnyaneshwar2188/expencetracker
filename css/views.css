@@ -1,0 +1,808 @@
+/* ==========================================================================
+   FINFLOW - VIEW-SPECIFIC STYLES & LAYOUTS
+   ========================================================================== */
+
+/* ==========================================================================
+   1. DASHBOARD VIEW
+   ========================================================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.quick-actions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  align-items: center;
+}
+
+.quick-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 8px 16px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.quick-action-pill:hover {
+  background-color: var(--bg-surface);
+  border-color: var(--primary-400);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.quick-action-pill.primary {
+  background: var(--primary-gradient);
+  color: #FFFFFF;
+  border-color: transparent;
+}
+
+.quick-action-pill.income {
+  background: var(--color-income-light);
+  color: var(--color-income);
+  border-color: var(--color-income-border);
+}
+
+.quick-action-pill.expense {
+  background: var(--color-expense-light);
+  color: var(--color-expense);
+  border-color: var(--color-expense-border);
+}
+
+.dashboard-charts-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.dashboard-bottom-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+
+/* Smart Insights Section */
+.insights-banner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.insight-card {
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+}
+
+.insight-card.alert::before { background: var(--color-expense); }
+.insight-card.warning::before { background: var(--color-warning); }
+.insight-card.success::before { background: var(--color-income); }
+.insight-card.info::before { background: var(--primary-500); }
+
+.insight-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.insight-card.alert .insight-icon-box { background: var(--color-expense-light); color: var(--color-expense); }
+.insight-card.warning .insight-icon-box { background: var(--color-warning-light); color: var(--color-warning); }
+.insight-card.success .insight-icon-box { background: var(--color-income-light); color: var(--color-income); }
+.insight-card.info .insight-icon-box { background: var(--color-info-light); color: var(--primary-500); }
+
+.insight-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.insight-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Top categories item */
+.category-progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--space-md);
+}
+
+.category-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   2. TRANSACTIONS VIEW
+   ========================================================================== */
+.transactions-filter-bar {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filters-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.filter-input-search {
+  min-width: 200px;
+  padding: 8px 12px 8px 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--bg-input);
+  font-size: 0.88rem;
+  position: relative;
+}
+
+.search-field-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.search-field-wrapper svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.transaction-amount-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.transaction-amount-text.income {
+  color: var(--color-income);
+}
+
+.transaction-amount-text.expense {
+  color: var(--color-expense);
+}
+
+.transaction-actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Receipt Badge */
+.has-receipt-badge {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-500);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--primary-50);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .has-receipt-badge {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--primary-300);
+}
+
+/* ==========================================================================
+   3. BUDGET MANAGEMENT VIEW
+   ========================================================================== */
+.budget-hero-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.budget-hero-card::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.budget-hero-left {
+  flex: 1;
+}
+
+.budgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+}
+
+.budget-card {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.budget-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.budget-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.budget-card-category {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.budget-card-amounts {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.budget-spent {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.budget-limit {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+}
+
+/* ==========================================================================
+   4. SAVINGS GOALS VIEW
+   ========================================================================== */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+}
+
+.goal-card {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.goal-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.goal-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--primary-100);
+  color: var(--primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+[data-theme="dark"] .goal-icon-box {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary-300);
+}
+
+.goal-target-date {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.goal-amounts {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.goal-saved {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-savings);
+}
+
+.goal-actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   5. RECURRING EXPENSES VIEW
+   ========================================================================== */
+.recurring-hero-banner {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg) var(--space-xl);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.recurring-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+.recurring-card {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: transform var(--transition-fast);
+}
+
+.recurring-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.recurring-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recurring-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.recurring-amount {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-expense);
+}
+
+/* ==========================================================================
+   6. ANALYTICS VIEW
+   ========================================================================== */
+.analytics-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.analytics-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+/* ==========================================================================
+   7. CALENDAR VIEW
+   ========================================================================== */
+.calendar-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day-label {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  padding: 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calendar-cell {
+  min-height: 95px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+}
+
+.calendar-cell:hover {
+  border-color: var(--primary-400);
+  transform: scale(1.02);
+}
+
+.calendar-cell.other-month {
+  opacity: 0.35;
+}
+
+.calendar-cell.today {
+  border: 2px solid var(--primary-500);
+  background: var(--primary-50);
+}
+
+[data-theme="dark"] .calendar-cell.today {
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.cell-day-number {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.cell-spending-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cell-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-badge.income {
+  background: var(--color-income-light);
+  color: var(--color-income);
+}
+
+.cell-badge.expense {
+  background: var(--color-expense-light);
+  color: var(--color-expense);
+}
+
+/* ==========================================================================
+   8. REPORTS VIEW
+   ========================================================================== */
+.report-generator-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+}
+
+.printable-report-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   9. SETTINGS VIEW
+   ========================================================================== */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--space-lg);
+}
+
+.settings-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Category item manager pill */
+.category-manager-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  max-height: 240px;
+  overflow-y: auto;
+  padding: var(--space-xs) 0;
+}
+
+.manageable-category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  font-size: 0.85rem;
+  border: 1px solid var(--border-light);
+}
+
+/* ==========================================================================
+   10. GLOBAL SEARCH MODAL (Ctrl+K)
+   ========================================================================== */
+.global-search-modal .modal-box {
+  max-width: 650px;
+}
+
+.global-search-input-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.global-search-input-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1.15rem;
+  font-weight: 500;
+  outline: none;
+  color: var(--text-primary);
+}
+
+.search-results-list {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-result-item {
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.search-result-item:hover {
+  background: var(--bg-surface);
+}
+
+/* ==========================================================================
+   11. PIN LOCK SCREEN OVERLAY
+   ========================================================================== */
+.pin-lock-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-app);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+}
+
+.pin-lock-card {
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  box-shadow: var(--shadow-xl);
+}
+
+.pin-dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: var(--space-lg) 0;
+}
+
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--primary-400);
+  background: transparent;
+  transition: all var(--transition-fast);
+}
+
+.pin-dot.filled {
+  background: var(--primary-500);
+  transform: scale(1.15);
+}
+
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.pin-key {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all var(--transition-fast);
+}
+
+.pin-key:hover {
+  background: var(--primary-100);
+  color: var(--primary-700);
+  transform: scale(1.08);
+}
+
+[data-theme="dark"] .pin-key:hover {
+  background: rgba(99, 102, 241, 0.25);
+  color: var(--primary-300);
+}
+
+/* ==========================================================================
+   PRINT STYLES FOR REPORTS
+   ========================================================================== */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  .app-sidebar,
+  .app-header,
+  .mobile-bottom-nav,
+  .report-generator-bar,
+  .btn,
+  #toast-container {
+    display: none !important;
+  }
+
+  .app-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .printable-report-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
